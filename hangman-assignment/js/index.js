@@ -13,15 +13,31 @@ function guessWord() {
   return;
 }
 
-const button = document.getElementById("btn");
+const button = document.querySelector("#btn");
+let paragraph = "";
+
+function controlChars(input) {
+  if (paragraph.length === 0) {
+    document.querySelector(".inputtedChars").innerText = input;
+    paragraph = input;
+  } else {
+    for (i = 0; i < paragraph.length; i++) {
+      if (paragraph[i] === input) {
+        return;
+      } else {
+        paragraph += input;
+        input = "";
+        document.querySelector(".inputtedChars").innerText = paragraph;
+        document.querySelector("#charInput").value = "";
+      }
+    }
+  }
+}
+
 button.addEventListener("click", () => {
   let userChar = document.getElementById("charInput").value;
-  document.getElementById("charInput").value = "";
-
-  console.log(userChar);
+  controlChars(userChar);
 });
-
-console.log(guessWord());
 
 // let userInput = prompt("Gissa på ett ord");
 
