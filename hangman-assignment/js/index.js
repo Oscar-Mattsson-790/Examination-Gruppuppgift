@@ -13,26 +13,28 @@ function guessWord() {
   return;
 }
 
-const button = document.querySelector("#btn");
-let paragraph = "";
+let guessedChars = "";
 
 function controlChars(input) {
-  if (paragraph.length === 0) {
-    document.querySelector(".inputtedChars").innerText = input;
-    paragraph = input;
+  if (guessedChars.length === 0) {
+    guessedChars = input;
+    document.querySelector(".inputtedChars").innerText = guessedChars;
+    console.log(`Längden är ${guessedChars.length}. Så jag körde denna.`);
   } else {
-    for (i = 0; i < paragraph.length; i++) {
-      if (paragraph[i] === input) {
-        return;
-      } else {
-        paragraph += input;
-        input = "";
-        document.querySelector(".inputtedChars").innerText = paragraph;
-        document.querySelector("#charInput").value = "";
+    for (i = 0; i < guessedChars.length; i++) {
+      if (guessedChars[i] === input) {
+        return alert("Letter already chosen! Try a different one!");
       }
     }
+    guessedChars += input;
+    input = "";
+    document.querySelector(".inputtedChars").innerText = guessedChars;
+    document.querySelector("#charInput").value = "";
+    console.log(`Längden är på gussedChars är nu ${guessedChars.length}`);
   }
 }
+
+const button = document.querySelector("#btn");
 
 button.addEventListener("click", () => {
   let userChar = document.getElementById("charInput").value;
