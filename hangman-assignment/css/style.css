@@ -43,6 +43,15 @@ body {
 
 .secretWord {
   letter-spacing: 1rem;
+  color: #fa6701;
+  font-size: 20px;
+  font-family: Eater, cursive;
+}
+
+.inputtedChars {
+  font-family: Eater, cursive;
+  color: white;
+  letter-spacing: 0.3rem;
 }
 
 .ghostDiv {
