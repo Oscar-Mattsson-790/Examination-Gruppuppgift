@@ -34,7 +34,9 @@ function controlChars(input) {
   lastInput = input;
   if (guessedChars.length === 0) {
     guessedChars = input;
-    swtichLetter();
+
+    switchLetter();
+
     document.querySelector(".inputtedChars").innerText = guessedChars;
   } else {
     for (i = 0; i < guessedChars.length; i++) {
@@ -42,6 +44,9 @@ function controlChars(input) {
         return alert("Letter already chosen! Try a different one!");
       }
     }
+
+    switchLetter();
+
     guessedChars += input;
     input = "";
     document.querySelector(".inputtedChars").innerText = guessedChars;
@@ -49,20 +54,31 @@ function controlChars(input) {
   }
 }
 
-function swtichLetter() {
-  let switchVar = "";
+function switchLetter() {
+  let switchVar = document.querySelector(".secretWord").innerText;
   let tmpArray = [];
+
+  // Skapar array med underscores
+  for (i = 0; i < pickWord.length; i++) {
+    tmpArray[i] = switchVar[i];
+  }
+
+  // Byter ut bokstäverna i arrayen om användaren gissar rätt
   for (i = 0; i < pickWord.length; i++) {
     if (lastInput === pickWord[i]) {
-      switchVar = document.querySelector(".secretWord").innerText;
-      for (k = 0; k < pickWord.length; k++) {
-        tmpArray[k] = switchVar[k];
-        tmpArray[i] = switchVar[i];
-      }
-
-      console.log(tmpArray, tmpArray[i], switchVar[i]);
+      tmpArray[i] = pickWord[i];
     }
   }
+
+  // Skapar en ny variabel med bokstäver som bytts ut
+  switchVar = "";
+  for (i = 0; i < pickWord.length; i++) {
+    switchVar += tmpArray[i];
+  }
+
+  // Ordet som ska "gissas på" uppdateras på skärmen
+  console.log(tmpArray);
+  document.querySelector(".secretWord").innerText = switchVar;
 }
 
 var alphabet = [
