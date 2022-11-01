@@ -113,6 +113,7 @@ var alphabet = [
 button.addEventListener("click", () => {
   let userChar = document.getElementById("charInput").value;
   controlChars(userChar);
+  document.getElementById("charInput").value = "";
 });
 
 getWord();

@@ -31,6 +31,7 @@ body {
 }
 
 #charInput {
+  font-style: italic;
   margin: 1rem 0 0.5rem 0;
   font-size: 1.4rem;
   width: 2rem;
@@ -38,7 +39,9 @@ body {
   border-radius: 3px;
   border: none;
   font-weight: bolder;
-  background-color: rgba(247, 208, 208, 0.821);
+  background-color: #fa6701;
+  outline: none;
+  color: white;
 }
 
 .secretWord {
