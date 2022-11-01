@@ -57,12 +57,42 @@ function swtichLetter() {
       switchVar = document.querySelector(".secretWord").innerText;
       for (k = 0; k < pickWord.length; k++) {
         tmpArray[k] = switchVar[k];
+        tmpArray[i] = switchVar[i];
       }
-      /* switchVar[i] = pickWord[i]; */
-      console.log(tmpArray[k]);
+
+      console.log(tmpArray, tmpArray[i], switchVar[i]);
     }
   }
 }
+
+var alphabet = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+];
 
 button.addEventListener("click", () => {
   let userChar = document.getElementById("charInput").value;
