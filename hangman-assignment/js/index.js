@@ -7,19 +7,35 @@ document.querySelector("figure").classList.add("legs");
 
 let words = ["dog", "cat", "duck", "volvo", "horse", "apple", "lizard"];
 let rndWord = "";
+let guessedChars = "";
+let showWord = document.querySelector("#hold");
+let pickWord = "";
+let lastInput = "";
+const button = document.querySelector("#btn");
 
-function guessWord() {
+function getWord() {
   let rndWord = Math.floor(Math.random() * words.length);
-  return;
+  pickWord = words[rndWord];
+  console.log(pickWord);
+
+  printUnderscores(pickWord);
 }
 
-let guessedChars = "";
+function printUnderscores(pickWord) {
+  let underscoreVar = "";
+  for (i = 0; i < pickWord.length; i++) {
+    underscoreVar += "_";
+  }
+
+  document.querySelector(".secretWord").innerText = underscoreVar;
+}
 
 function controlChars(input) {
+  lastInput = input;
   if (guessedChars.length === 0) {
     guessedChars = input;
+    swtichLetter();
     document.querySelector(".inputtedChars").innerText = guessedChars;
-    console.log(`Längden är ${guessedChars.length}. Så jag körde denna.`);
   } else {
     for (i = 0; i < guessedChars.length; i++) {
       if (guessedChars[i] === input) {
@@ -30,21 +46,27 @@ function controlChars(input) {
     input = "";
     document.querySelector(".inputtedChars").innerText = guessedChars;
     document.querySelector("#charInput").value = "";
-    console.log(`Längden är på gussedChars är nu ${guessedChars.length}`);
   }
 }
 
-const button = document.querySelector("#btn");
+function swtichLetter() {
+  let switchVar = "";
+  let tmpArray = [];
+  for (i = 0; i < pickWord.length; i++) {
+    if (lastInput === pickWord[i]) {
+      switchVar = document.querySelector(".secretWord").innerText;
+      for (k = 0; k < pickWord.length; k++) {
+        tmpArray[k] = switchVar[k];
+      }
+      /* switchVar[i] = pickWord[i]; */
+      console.log(tmpArray[k]);
+    }
+  }
+}
 
 button.addEventListener("click", () => {
   let userChar = document.getElementById("charInput").value;
   controlChars(userChar);
 });
 
-// let userInput = prompt("Gissa på ett ord");
-
-//if (prompt === words) {
-//prompt("Du lyckades!");
-//} else {
-//prompt("fortsätt gissa");
-//}
+getWord();

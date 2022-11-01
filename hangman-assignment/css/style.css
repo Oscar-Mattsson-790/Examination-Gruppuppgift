@@ -2,6 +2,7 @@
 
 * {
   box-sizing: border-box;
+  margin: 0%;
 }
 
 body {
@@ -38,6 +39,10 @@ body {
   border: none;
   font-weight: bolder;
   background-color: rgba(247, 208, 208, 0.821);
+}
+
+.secretWord {
+  letter-spacing: 1rem;
 }
 
 .ghostDiv {
