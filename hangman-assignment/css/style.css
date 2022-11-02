@@ -13,6 +13,11 @@ body {
   background-color: #7349ac;
 }
 
+p {
+  font-style: italic;
+  color: #fa6701;
+}
+
 .letters {
   font-family: "Eater", cursive;
   font-size: 3em;
@@ -74,7 +79,12 @@ body {
   width: 150px;
   border-radius: 5px;
   border: none;
-  box-shadow: 7px 7px 53px 3px rgba(12, 12, 11, 0.75);
+  box-shadow: 0px 4px 4px rgba(12, 12, 11, 0.75);
+  cursor: pointer;
+}
+
+.letter__btn:active {
+  transform: translateY(4px);
 }
 
 .wrapper figure svg > * {
