@@ -111,8 +111,9 @@ button.addEventListener("click", () => {
 function totalWrongAnswers(wrongAnswerCount) {
   if (wrongAnswerCount === totalGuesses) {
     const para = document.createElement("p");
-    para.innerText = "YOU DIED!";
+
     document.querySelector(".secretWord").innerText = pickWord;
+    para.innerText = "YOU DIED!";
     document.querySelector(".winOrDie").appendChild(para);
     button.textContent = "Play Again";
   }
