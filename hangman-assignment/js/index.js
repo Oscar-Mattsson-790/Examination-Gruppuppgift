@@ -92,17 +92,29 @@ function switchLetter() {
   document.querySelector(".secretWord").innerText = switchVar;
 }
 
-// Om/När användaren klickar på knappen sparas inmatningen i en variabel och skickas vidare för kontroll, samt nollställer värdet i inmatningsfältet
+// Om/När användaren klickar på knappen...
 button.addEventListener("click", () => {
-  let userChar = document.getElementById("charInput").value;
-  controlChars(userChar);
-  document.getElementById("charInput").value = "";
+  let whatButton = document.querySelector("#btn").innerText;
+
+  // ...sparas inmatningen i en variabel och skickas vidare för kontroll, samt nollställer värdet i inmatningsfältet
+  if (whatButton.includes("Win")) {
+    let userChar = document.querySelector("#charInput").value;
+    controlChars(userChar);
+    document.querySelector("#charInput").value = "";
+    // ...återställs sidan och användaren får spela igen
+  } else {
+    button.textContent = "Win or Die";
+    location.reload();
+  }
 });
 
 function totalWrongAnswers(wrongAnswerCount) {
   if (wrongAnswerCount === totalGuesses) {
-    button.textContent = "Play Again?";
-    console.log("YOU LOSE");
+    const para = document.createElement("p");
+    para.innerText = "YOU DIED!";
+    document.querySelector(".secretWord").innerText = pickWord;
+    document.querySelector(".winOrDie").appendChild(para);
+    button.textContent = "Play Again";
   }
 }
 
