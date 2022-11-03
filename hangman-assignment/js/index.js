@@ -1,16 +1,20 @@
 const hangman = ["scaffold", "head", "body", "arms", "legs"];
 const button = document.querySelector("#btn");
+const charInput = document.querySelector("#charInput");
 const totalGuesses = 5;
 const words = [
   "wolverine",
-  "tiger",
-  "duck",
-  "volvo",
-  "horse",
-  "apple",
-  "lizard",
-  "death",
+  "characteristic",
+  "barcelona",
+  "billionaire",
+  "gladiator",
+  "thirsty",
+  "lizardman",
+  "deathproof",
+  "adventure",
+  "javascript",
 ];
+const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 let rndWord = "";
 let guessedChars = "";
@@ -70,7 +74,17 @@ function controlChars(input) {
       document.querySelector("#charInput").value = "";
     }
   }
+  didUserWin();
+  totalWrongAnswers();
 }
+
+// Kontrollera bokstav på "on keyup"
+charInput.addEventListener("keyup", (input) => {
+  const letter = input.key.toLowerCase();
+  if (alphabet.includes(letter)) {
+    controlChars(input.key);
+  }
+});
 
 // Kontrollerar om användaren skrivit in en bokstav som stämmer överens med någon bokstav i det förutbestämda/slumpade ordet. Om så är fallet byts motsvarande underscore ut mot den rätta bokstaven
 function switchLetter() {
@@ -162,7 +176,7 @@ function didUserWin() {
 }
 
 function countdown() {
-  let seconds = 10;
+  let seconds = 50;
   function tick() {
     let counter = document.getElementById("timer");
     seconds--;
