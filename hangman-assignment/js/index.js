@@ -2,7 +2,7 @@ const hangman = ["scaffold", "head", "body", "arms", "legs"];
 const button = document.querySelector("#btn");
 const totalGuesses = 5;
 
-let words = ["dog", "cat", "duck", "volvo", "horse", "apple", "lizard"];
+let words = ["wolverine", "tiger", "duck", "volvo", "horse", "apple", "lizard"];
 let rndWord = "";
 let guessedChars = "";
 let pickWord = "";
@@ -111,7 +111,6 @@ button.addEventListener("click", () => {
 function totalWrongAnswers(wrongAnswerCount) {
   if (wrongAnswerCount === totalGuesses) {
     const para = document.createElement("p");
-
     document.querySelector(".secretWord").innerText = pickWord;
     para.innerText = "YOU DIED!";
     document.querySelector(".winOrDie").appendChild(para);
