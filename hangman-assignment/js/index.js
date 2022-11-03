@@ -24,6 +24,7 @@ let wrongAnswerCount = 0;
 let correctAnswerCount = 0;
 let switchVar = "";
 let userLost = 0;
+let seconds = 0;
 
 // Tar fram slumpat ord från arrayen "words"
 function getWord() {
@@ -61,7 +62,9 @@ function controlChars(input) {
   } else {
     for (i = 0; i < guessedChars.length; i++) {
       if (guessedChars[i] === input) {
-        return alert("Letter already chosen! Try a different one!");
+        return alert(
+          "This letter has already been chosen! Pick a different one!"
+        );
       }
     }
 
@@ -151,6 +154,9 @@ function totalWrongAnswers(wrongAnswerCount) {
   if (wrongAnswerCount === totalGuesses) {
     const para = document.createElement("p");
     const body = document.querySelector("body");
+
+    clearInterval(countdownTimeout);
+
     body.style.background = "linear-gradient(black, white)";
     para.innerText = "YOU DIED!";
     document.querySelector(".winOrDie").appendChild(para);
@@ -167,26 +173,32 @@ function didUserWin() {
   if (!switchVar.includes("_")) {
     const para = document.createElement("p");
     const body = document.querySelector("body");
-    body.style.background = "linear-gradient(green, white)";
+
+    clearInterval(countdownTimeout);
+
     para.innerText = "YOU WON!";
     document.querySelector(".winOrDie").appendChild(para);
     document.querySelector(".secretWord").innerText = pickWord;
+    body.style.background = "linear-gradient(green, white)";
     button.textContent = "Play Again";
   }
 }
 
+/* Startar nedräkningen, d.v.s. tiden användaren har på sig att gissa.
+   Går tiden ut förlorar man */
 function countdown() {
-  let seconds = 50;
+  seconds = 60;
+  countdownTimeout = setInterval(tick, 1000);
   function tick() {
     let counter = document.getElementById("timer");
     seconds--;
-    counter.innerHTML = "0:" + (seconds < 10 ? "0" : "") + String(seconds);
+    counter.innerHTML = "0:" + (seconds < 10 ? "0" : "") + seconds;
     if (seconds > 0) {
-      setTimeout(tick, 1000);
+      countdownTimeout;
     } else {
-      const body = document.querySelector("body");
-      body.style.background = "linear-gradient(black, white)";
-      document.getElementById("timer").innerHTML = "YOU LOSE!!!";
+      clearInterval(countdownTimeout);
+      wrongAnswerCount = totalGuesses;
+      totalWrongAnswers(wrongAnswerCount);
     }
   }
   tick();
