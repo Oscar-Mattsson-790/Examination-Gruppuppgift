@@ -1,13 +1,25 @@
 const hangman = ["scaffold", "head", "body", "arms", "legs"];
 const button = document.querySelector("#btn");
 const totalGuesses = 5;
+const words = [
+  "wolverine",
+  "tiger",
+  "duck",
+  "volvo",
+  "horse",
+  "apple",
+  "lizard",
+  "death",
+];
 
-let words = ["wolverine", "tiger", "duck", "volvo", "horse", "apple", "lizard"];
 let rndWord = "";
 let guessedChars = "";
 let pickWord = "";
 let lastInput = "";
 let wrongAnswerCount = 0;
+let correctAnswerCount = 0;
+let switchVar = "";
+let userLost = 0;
 
 // Tar fram slumpat ord från arrayen "words"
 function getWord() {
@@ -17,6 +29,8 @@ function getWord() {
 
   printUnderscores(pickWord);
 }
+
+getWord();
 
 // Tar fram antal undersocre per bokstav för ordet
 function printUnderscores(pickWord) {
@@ -37,7 +51,9 @@ function controlChars(input) {
 
     switchLetter();
 
-    document.querySelector(".inputtedChars").innerText = guessedChars;
+    if (userLost === 0) {
+      document.querySelector(".inputtedChars").innerText = guessedChars;
+    }
   } else {
     for (i = 0; i < guessedChars.length; i++) {
       if (guessedChars[i] === input) {
@@ -47,18 +63,21 @@ function controlChars(input) {
 
     switchLetter();
 
-    guessedChars += input;
-    input = "";
-    document.querySelector(".inputtedChars").innerText = guessedChars;
-    document.querySelector("#charInput").value = "";
+    if (userLost === 0) {
+      guessedChars += input;
+      input = "";
+      document.querySelector(".inputtedChars").innerText = guessedChars;
+      document.querySelector("#charInput").value = "";
+    }
   }
 }
 
 // Kontrollerar om användaren skrivit in en bokstav som stämmer överens med någon bokstav i det förutbestämda/slumpade ordet. Om så är fallet byts motsvarande underscore ut mot den rätta bokstaven
 function switchLetter() {
-  let switchVar = document.querySelector(".secretWord").innerText;
   let tmpArray = [];
-  let correctAnswerCount = 0;
+  correctAnswerCount = 0;
+
+  switchVar = document.querySelector(".secretWord").innerText;
 
   // Skapar array med underscores
   for (i = 0; i < pickWord.length; i++) {
@@ -75,21 +94,23 @@ function switchLetter() {
 
   /* Om bokstaven användaren skrev in inte stämmer överens med någon av bokstäverna i det slumpade ordet så ritas nästa
      del av "hänggubben" ut och en mätare plussas på för att hålla koll på hur många felgissningar som gjorts */
-  if (correctAnswerCount == 0) {
+  if (correctAnswerCount === 0) {
     document.querySelector("figure").classList.add(hangman[wrongAnswerCount]);
     wrongAnswerCount++;
     totalWrongAnswers(wrongAnswerCount);
   }
 
-  // Skapar en ny variabel med bokstäver som bytts ut
-  switchVar = "";
-  for (i = 0; i < pickWord.length; i++) {
-    switchVar += tmpArray[i];
-  }
+  // Så länge användaren INTE gissat fel fem gånger (totalGuesses) så...
+  if (wrongAnswerCount !== totalGuesses) {
+    // Skapar en ny variabel med bokstäver som bytts ut
+    switchVar = "";
+    for (i = 0; i < pickWord.length; i++) {
+      switchVar += tmpArray[i];
+    }
 
-  // Ordet som ska "gissas på" uppdateras på skärmen
-  console.log(tmpArray);
-  document.querySelector(".secretWord").innerText = switchVar;
+    // Ordet som ska "gissas på" uppdateras på skärmen
+    document.querySelector(".secretWord").innerText = switchVar;
+  }
 }
 
 // Om/När användaren klickar på knappen...
@@ -101,6 +122,9 @@ button.addEventListener("click", () => {
     let userChar = document.querySelector("#charInput").value;
     controlChars(userChar);
     document.querySelector("#charInput").value = "";
+
+    didUserWin();
+
     // ...återställs sidan och användaren får spela igen
   } else {
     button.textContent = "Win or Die";
@@ -108,14 +132,49 @@ button.addEventListener("click", () => {
   }
 });
 
+// Kontrollerar om användaren förbrukat sina gissningar eller inte. Har användaren det får han/hon möjligheten att spela igen
 function totalWrongAnswers(wrongAnswerCount) {
   if (wrongAnswerCount === totalGuesses) {
     const para = document.createElement("p");
-    document.querySelector(".secretWord").innerText = pickWord;
+    const body = document.querySelector("body");
+    body.style.background = "linear-gradient(black, white)";
     para.innerText = "YOU DIED!";
     document.querySelector(".winOrDie").appendChild(para);
+    document.querySelector(".secretWord").innerText = pickWord;
+    document.querySelector(".usedLetters").innerText =
+      "The correct answer was:";
+    userLost = 1;
     button.textContent = "Play Again";
   }
 }
 
-getWord();
+// Kontrollerar om användaren gissat alla rätt. Har användaren det visas det på skärmen för användaren och han/hon får möjligheten att spela igen
+function didUserWin() {
+  if (!switchVar.includes("_")) {
+    const para = document.createElement("p");
+    const body = document.querySelector("body");
+    body.style.background = "linear-gradient(green, white)";
+    para.innerText = "YOU WON!";
+    document.querySelector(".winOrDie").appendChild(para);
+    document.querySelector(".secretWord").innerText = pickWord;
+    button.textContent = "Play Again";
+  }
+}
+
+function countdown() {
+  let seconds = 10;
+  function tick() {
+    let counter = document.getElementById("timer");
+    seconds--;
+    counter.innerHTML = "0:" + (seconds < 10 ? "0" : "") + String(seconds);
+    if (seconds > 0) {
+      setTimeout(tick, 1000);
+    } else {
+      const body = document.querySelector("body");
+      body.style.background = "linear-gradient(black, white)";
+      document.getElementById("timer").innerHTML = "YOU LOSE!!!";
+    }
+  }
+  tick();
+}
+countdown();
