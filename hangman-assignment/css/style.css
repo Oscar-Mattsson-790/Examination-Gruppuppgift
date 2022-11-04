@@ -65,6 +65,7 @@ p {
 
 .usedLetters {
   font-size: 1.6rem;
+  font-weight: bold;
 }
 
 .inputtedChars {
@@ -156,22 +157,21 @@ p {
   justify-content: space-around;
   flex-wrap: wrap;
 }
-
 .left-eye,
 .right-eye {
   width: 20px;
   height: 20px;
+  background-color: rgb(250, 94, 94);
   border-radius: 100%;
-  background-color: #000000;
   margin: 0 0.5rem;
 }
 
 .mouth {
-  width: 32px;
-  height: 20px;
-  border-bottom: 12px solid #000000;
+  width: 52px;
+  height: 30px;
+  border-bottom: 12px solid #f54545;
   border-radius: 100%;
-  margin-top: 0.2rem;
+  margin-top: 1rem;
 }
 
 .left-arm,
@@ -221,7 +221,7 @@ p {
   background-color: transparent;
   margin: 3px -4px;
   top: -5px;
-  border-color: #7349ac;
+  border-color: #f54545;
 }
 
 .shadow {
@@ -233,6 +233,7 @@ p {
   border-radius: 100%;
   background-color: #000000;
   animation: movingShadow 4s ease infinite;
+  animation-delay: 2s;
 }
 
 @keyframes float {

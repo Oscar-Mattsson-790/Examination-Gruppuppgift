@@ -30,8 +30,6 @@ let seconds = 0;
 function getWord() {
   let rndWord = Math.floor(Math.random() * words.length);
   pickWord = words[rndWord];
-  console.log(pickWord);
-
   printUnderscores(pickWord);
 }
 
@@ -43,7 +41,6 @@ function printUnderscores(pickWord) {
   for (i = 0; i < pickWord.length; i++) {
     underscoreVar += "_";
   }
-
   document.querySelector(".secretWord").innerText = underscoreVar;
 }
 
@@ -93,7 +90,6 @@ charInput.addEventListener("keyup", (input) => {
 function switchLetter() {
   let tmpArray = [];
   correctAnswerCount = 0;
-
   switchVar = document.querySelector(".secretWord").innerText;
 
   // Skapar array med underscores
@@ -124,7 +120,6 @@ function switchLetter() {
     for (i = 0; i < pickWord.length; i++) {
       switchVar += tmpArray[i];
     }
-
     // Ordet som ska "gissas på" uppdateras på skärmen
     document.querySelector(".secretWord").innerText = switchVar;
   }
