@@ -2,6 +2,7 @@ const hangman = ["scaffold", "head", "body", "arms", "legs"];
 const button = document.querySelector("#btn");
 const charInput = document.querySelector("#charInput");
 const totalGuesses = 5;
+const alphabet = "abcdefghijklmnopqrstuvwxyz";
 const words = [
   "wolverine",
   "characteristic",
@@ -14,7 +15,6 @@ const words = [
   "adventure",
   "javascript",
 ];
-const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 let rndWord = "";
 let guessedChars = "";
